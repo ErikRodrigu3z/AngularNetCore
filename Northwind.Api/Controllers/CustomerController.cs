@@ -28,8 +28,22 @@ namespace Northwind.Api.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("GetPaginatedCustomer/{page:int}/{rows:int}")]
+        public IActionResult GetPaginatedCustomer(int page, int rows)
+        {
+            try
+            {
+                return Ok(_unitOfWork.Customer.CustomerPagedList(page, rows));
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         [HttpPost]       
-        public IActionResult Post(Customer customer)
+        public IActionResult Post([FromBody] Customer customer)
         {
             try
             {
@@ -44,6 +58,43 @@ namespace Northwind.Api.Controllers
             }
         }
 
+        [HttpPut]
+        public IActionResult Put([FromBody] Customer customer)
+        {
+            try
+            {
+                if (!ModelState.IsValid && _unitOfWork.Customer.Update(customer))
+                {
+                    return Ok(new { Message = "ok"});
+
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
+        [HttpDelete]
+        public IActionResult Delete([FromBody] Customer customer)
+        {
+            try
+            {
+                if (customer.Id > 0)
+                {
+                    return Ok(_unitOfWork.Customer.Delete(customer));
+
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
 
     }
 }
