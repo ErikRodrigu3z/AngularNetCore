@@ -27,7 +27,7 @@ namespace Northwind.Api.Auth
         public string CreateToken(User user, DateTime expiry)
         {
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
-            var identity = new ClaimsIdentity(new List<Claim>()
+            var identity = new ClaimsIdentity(new List<Claim>
             {
                 new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
                 new Claim(ClaimTypes.Role, user.Roles),

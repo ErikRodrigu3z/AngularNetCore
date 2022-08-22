@@ -12,9 +12,11 @@ namespace Northwin.DataAccess
     {
         public UnitOfWork(string conn)
         {
-
             Customer = new CustomerRepository(conn);
+            User = new UserRepository(conn);
         }
         public ICustomerRepository Customer { get; private set; }
+
+        public IUserRepository User { get; private set; }
     }
 }

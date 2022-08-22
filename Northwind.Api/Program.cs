@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Northwin.DataAccess;
+using Northwind.Api.Auth;
 using Northwind.UnitOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +9,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IUnitOfWork>(opt => new UnitOfWork(
     builder.Configuration.GetConnectionString("Northwind")
 ));
+
+var tokenProvider = new JwtProvider("issuer", "audience", "northwin_2000");
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(opt =>
+    {
+        opt.RequireHttpsMetadata = false;
+        opt.TokenValidationParameters = tokenProvider.GetValidationParameters();
+    });
+builder.Services.AddSingleton<ITokenProvider>(tokenProvider);
 
 
 builder.Services.AddControllers();
@@ -26,6 +37,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.UseAuthentication();
+    
 
 app.MapControllers();
 
