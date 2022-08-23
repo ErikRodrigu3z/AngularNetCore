@@ -14,9 +14,13 @@ namespace Northwin.DataAccess
         {
             Customer = new CustomerRepository(conn);
             User = new UserRepository(conn);
+            Supplier =  new SuppplierRepository(conn);
         }
+
         public ICustomerRepository Customer { get; private set; }
 
         public IUserRepository User { get; private set; }
+
+        public ISupplierRepository Supplier { get; private set; }
     }
 }

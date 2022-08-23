@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Northwin.Models;
 using Northwind.UnitOfWork;
 
 namespace Northwind.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CustomerController : ControllerBase
@@ -18,14 +20,10 @@ namespace Northwind.Api.Controllers
         [Route("{id:int}")]
         public  IActionResult GetById(int id)
         {
-            try
-            {
-                return Ok(_unitOfWork.Customer.GetById(id));
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            var res = Request.Headers.ToArray();
+            throw new Exception("error inesperado");
+            return Ok(_unitOfWork.Customer.GetById(id));
+            
         }
 
         [HttpGet]
