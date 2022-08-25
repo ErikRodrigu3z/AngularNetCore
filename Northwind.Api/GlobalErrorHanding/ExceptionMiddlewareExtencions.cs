@@ -17,10 +17,15 @@ namespace Northwind.Api.GlobalErrorHanding
                     var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
                     if (contextFeature != null)
                     {
+                        string message = $"Error: {contextFeature.Error.Message}";
+                        if (contextFeature.Error.InnerException != null)
+                        {
+                            message = $"{contextFeature.Error.Message} ------->> {contextFeature.Error.InnerException!.Message}";                              
+                        }
                         await context.Response.WriteAsync(new ErrorDetails
                         {
                             StatusCode = context.Response.StatusCode,
-                            Message = "Internal Server Error."
+                            Message = message
                         }.ToString()!);
                     }
                 });

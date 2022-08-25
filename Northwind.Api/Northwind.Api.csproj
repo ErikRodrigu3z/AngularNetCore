@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Configurations>Debug;Release;Test;Test2</Configurations>
+    <Configurations>Debug;Release;Development;Development2</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,6 +18,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Northwin.DataAccess\Northwin.DataAccess.csproj" />
     <ProjectReference Include="..\Northwind.UnitOfWork\Northwind.UnitOfWork.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="NewFolder\" />
   </ItemGroup>
 
 </Project>

@@ -21,7 +21,8 @@ namespace Northwind.Api.Controllers
         public  IActionResult GetById(int id)
         {
             var res = Request.Headers.ToArray();
-            throw new Exception("error inesperado");
+            //TODO: revisar los ambientes
+            //throw new Exception("error inesperado");  
             return Ok(_unitOfWork.Customer.GetById(id));
             
         }
