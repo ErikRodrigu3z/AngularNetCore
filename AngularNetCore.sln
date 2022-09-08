@@ -28,6 +28,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL-Scripts", "SQL-Scripts"
 	ProjectSection(SolutionItems) = preProject
 		C:\Users\erik\Downloads\CreateDatabase.sql = C:\Users\erik\Downloads\CreateDatabase.sql
 		C:\Users\erik\Downloads\InsertData.sql = C:\Users\erik\Downloads\InsertData.sql
+		C:\Users\Desarrollo\Documents\SQL Server Management Studio\OrderPagedList.sql = C:\Users\Desarrollo\Documents\SQL Server Management Studio\OrderPagedList.sql
+		C:\Users\Desarrollo\Documents\SQL Server Management Studio\ProductPagedList.sql = C:\Users\Desarrollo\Documents\SQL Server Management Studio\ProductPagedList.sql
 	EndProjectSection
 EndProject
 Global

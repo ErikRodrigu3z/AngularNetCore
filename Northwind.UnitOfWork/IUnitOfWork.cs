@@ -1,9 +1,4 @@
 ﻿using Northwind.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Northwind.UnitOfWork
 {
@@ -12,5 +7,9 @@ namespace Northwind.UnitOfWork
         ICustomerRepository Customer { get; }
         IUserRepository User { get; }
         ISupplierRepository Supplier { get; }
+        IOrderRepository Order { get; }
+        IProductRepository Product { get; }
+        IOrderItemRepository OrderItem { get; }
+
     }
 }

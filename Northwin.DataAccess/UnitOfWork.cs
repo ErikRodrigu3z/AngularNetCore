@@ -1,10 +1,5 @@
 ﻿using Northwind.Repositories;
 using Northwind.UnitOfWork;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Northwin.DataAccess
 {
@@ -15,6 +10,9 @@ namespace Northwin.DataAccess
             Customer = new CustomerRepository(conn);
             User = new UserRepository(conn);
             Supplier =  new SuppplierRepository(conn);
+            Order = new OrderRepository(conn);
+            Product = new ProductRepository(conn);
+            OrderItem = new OrderItemRepository(conn);
         }
 
         public ICustomerRepository Customer { get; private set; }
@@ -22,5 +20,11 @@ namespace Northwin.DataAccess
         public IUserRepository User { get; private set; }
 
         public ISupplierRepository Supplier { get; private set; }
+
+        public IOrderRepository Order { get; private set; }
+
+        public IProductRepository Product { get; private set; }
+
+        public IOrderItemRepository OrderItem { get; private set; }
     }
 }

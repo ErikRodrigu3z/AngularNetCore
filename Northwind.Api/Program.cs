@@ -11,9 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 #region UnitOfWork context
-builder.Services.AddScoped<IUnitOfWork>(opt => new UnitOfWork(
-builder.Configuration.GetConnectionString("Northwind")
-));
+builder.Services.AddScoped<IUnitOfWork>(opt => new UnitOfWork(builder.Configuration.GetConnectionString("Northwind")));
 #endregion
 
 #region JWT Authentication settings

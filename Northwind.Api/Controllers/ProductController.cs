@@ -8,31 +8,33 @@ namespace Northwind.Api.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class CustomerController : ControllerBase
+    public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        public CustomerController(IUnitOfWork unitOfWork)
+
+        public ProductController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
         [Route("{id:int}")]
-        public  IActionResult GetById(int id)
+        public IActionResult GetById(int id)
         {
             var res = Request.Headers.ToArray();
-            
-            return Ok(_unitOfWork.Customer.GetById(id));
-            
+            //TODO: revisar los ambientes
+            //throw new Exception("error inesperado");  
+            return Ok(_unitOfWork.Product.GetById(id));
+
         }
 
         [HttpGet]
-        [Route("GetPaginatedCustomer/{page:int}/{rows:int}")]
-        public IActionResult GetPaginatedCustomer(int page, int rows)
+        [Route("GetPaginatedProduct/{page:int}/{rows:int}")]
+        public IActionResult GetPaginatedProduct(int page, int rows)
         {
             try
             {
-                return Ok(_unitOfWork.Customer.CustomerPagedList(page, rows));
+                return Ok(_unitOfWork.Product.ProductPagedList(page, rows));
             }
             catch (Exception ex)
             {
@@ -40,14 +42,14 @@ namespace Northwind.Api.Controllers
             }
         }
 
-        [HttpPost]       
-        public IActionResult Post([FromBody] Customer customer)
+        [HttpPost]
+        public IActionResult Post([FromBody] Product product)
         {
             try
             {
                 if (!ModelState.IsValid) return BadRequest();
 
-                return Ok(_unitOfWork.Customer.Insert(customer));
+                return Ok(_unitOfWork.Product.Insert(product));
             }
             catch (Exception ex)
             {
@@ -57,13 +59,13 @@ namespace Northwind.Api.Controllers
         }
 
         [HttpPut]
-        public IActionResult Put([FromBody] Customer customer)
+        public IActionResult Put([FromBody] Product product)
         {
             try
             {
-                if (!ModelState.IsValid && _unitOfWork.Customer.Update(customer))
+                if (!ModelState.IsValid && _unitOfWork.Product.Update(product))
                 {
-                    return Ok(new { Message = "ok"});
+                    return Ok(new { Message = "ok" });
 
                 }
                 return BadRequest();
@@ -76,13 +78,13 @@ namespace Northwind.Api.Controllers
         }
 
         [HttpDelete]
-        public IActionResult Delete([FromBody] Customer customer)
+        public IActionResult Delete([FromBody] Product product)
         {
             try
             {
-                if (customer.Id > 0)
+                if (product.Id > 0)
                 {
-                    return Ok(_unitOfWork.Customer.Delete(customer));
+                    return Ok(_unitOfWork.Product.Delete(product));
 
                 }
                 return BadRequest();
@@ -93,6 +95,5 @@ namespace Northwind.Api.Controllers
                 throw;
             }
         }
-
     }
 }
