@@ -19,11 +19,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Northwind.UnitOfWork", "Nor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Northwind.Api", "Northwind.Api\Northwind.Api.csproj", "{09790630-3AE1-4DCA-83E6-E494581476EC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1A9CC82A-2444-4308-A20F-F0FBE69F1680}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL-Scripts", "SQL-Scripts", "{74D50C32-6931-474E-9D5B-1D35402F99CA}"
 	ProjectSection(SolutionItems) = preProject
 		C:\Users\erik\Downloads\CreateDatabase.sql = C:\Users\erik\Downloads\CreateDatabase.sql
