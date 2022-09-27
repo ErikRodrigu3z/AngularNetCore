@@ -34,7 +34,20 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer(); 
+builder.Services.AddEndpointsApiExplorer();
+#endregion
+
+#region Cors
+var corsPolicy = "corsPolicy";
+builder.Services.AddCors(op =>
+{
+    op.AddPolicy(name: corsPolicy,
+            policy => {
+                policy.AllowAnyHeader();
+                policy.AllowAnyMethod();
+                policy.AllowAnyOrigin();
+            });
+});
 #endregion
 
 #region Swagger
