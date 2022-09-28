@@ -27,29 +27,37 @@
             Start creating the best possible user experience for you
             customers.
           </p>
-          <form action="#">
+          <form (ngSubmit)="Login(f)" #f="ngForm">
             <div class="row">
               <div class="col-12">
                 <div class="input-style-1">
+                  <!-- email input -->
                   <label>Email</label>
-                  <input #email id="email" name="email" type="email" placeholder="Email" />
+                  <input [(ngModel)]="login.email" name="email" type="email" placeholder="Email"
+                  required="" email />
+                  <!-- validate email input -->
+                  <span *ngIf="f.submitted && f.controls['email'].errors" 
+                  class="text-danger">El correo es obligatorio</span>
                 </div>
               </div>
               <!-- end col -->
               <div class="col-12">
                 <div class="input-style-1">
                   <label>Password</label>
-                  <input #password id="password" name="password" type="password" placeholder="Password" />
+                  <input [(ngModel)]="login.password" required="" name="password" minlength="6" type="password" placeholder="Password" />
+                   <!-- validate password input -->
+                   <span *ngIf="f.submitted && f.controls['password'].errors" 
+                   class="text-danger">El Password es obligatorio y debe tener almenos 6 caracteres</span>
                 </div>
               </div>
               <!-- end col -->
               <div class="col-xxl-6 col-lg-12 col-md-6">
                 <div class="form-check checkbox-style mb-30">
                   <input
+                    [(ngModel)]="login.remember"
                     class="form-check-input"
-                    type="checkbox"
-                    value=""
-                    id="checkbox-remember"
+                    type="checkbox"                    
+                    name="remember"
                   />
                   <label
                     class="form-check-label"
@@ -83,7 +91,7 @@
                   "
                 >
                   <button class="main-btn primary-btn btn-hover w-100 text-center"
-                  (click)="Login(email.value, password.value)" >
+                   >
                     Sign In
                   </button>
                 </div>
@@ -116,7 +124,7 @@
             </div>
             <p class="text-sm text-medium text-dark text-center">
               Don’t have any account yet?
-              <a href="signup.html">Create an account</a>
+              <a routerLink="/register" >Create an account</a>
             </p>
           </div>
         </div>

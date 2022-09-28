@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using Northwin.Models;
 using Northwind.Api.Auth;
 using Northwind.UnitOfWork;
@@ -24,37 +25,42 @@ namespace Northwind.Api.Controllers
         [HttpPost]
         public IActionResult Post([FromBody]User userLogin)
         {
-            var user = _unitOfWork.User.ValidateUser(userLogin.Email, userLogin.Password);
-            if (user == null)
+            try
             {
-                return NotFound("User or password wrong");
-            }
+                var user = _unitOfWork.User.ValidateUser(userLogin.Email, userLogin.Password);
+                if (user == null)
+                {
+                    return NotFound("User or password wrong");
+                }
 
-            //create claims details based on the user information
-            var claims = new[] {
+                //create claims details based on the user information
+                var claims = new[] {
                         new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                         new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
-                        new Claim("UserId", userLogin.Id.ToString()),
-                        //new Claim("DisplayName", userLogin.DisplayName),
+                        new Claim("UserId", user.Id.ToString()),
+                        new Claim("Role", user.Roles),
                         //new Claim("UserName", userLogin.UserName),
-                        new Claim("Email", userLogin.Email)
+                        new Claim("Email", user.Email)
                     };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-            var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var token = new JwtSecurityToken(
-                _configuration["Jwt:Issuer"],
-                _configuration["Jwt:Audience"],
-                claims,
-                expires: DateTime.UtcNow.AddMinutes(30),
-                signingCredentials: signIn);
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+                var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+                var token = new JwtSecurityToken(
+                    _configuration["Jwt:Issuer"],
+                    _configuration["Jwt:Audience"],
+                    claims,
+                    expires: DateTime.UtcNow.AddMinutes(30),
+                    signingCredentials: signIn);
 
+                var resToken = new JwtSecurityTokenHandler().WriteToken(token);
+                return Ok(JsonConvert.SerializeObject(resToken));
+            }
+            catch (Exception ex)
+            {
 
-
-
-
-            return Ok(new JwtSecurityTokenHandler().WriteToken(token));
+                throw;
+            }
         }
 
 

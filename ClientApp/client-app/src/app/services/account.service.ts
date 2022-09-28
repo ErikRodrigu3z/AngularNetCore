@@ -1,37 +1,42 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
-  //properties
-  test: any[] =[];
+  //#region Properties
+  //token = '';
 
-
+  //#endregion
+   
+  //#region Contructor  
   constructor(private http: HttpClient) {
    
   }
+  //#endregion
 
-
-  Login(email: string, password: string){
-    if(email.length < 1){
-        alert(email);
-        return;
-    }
-     
-    this.http.post('https://localhost:7177/api/token','{"email":"erik","pssword":"pas1234"}')
-    .subscribe((resp) => {
-      console.log(resp);
+  //#region Methods and functions 
+  Login(email: string, password: string){    
+    this.http.post(`${environment.urlService}/token`,{email: email, password: password})
+    .subscribe((token: any) => {
+          console.log(token);          
+          return token;
+    }, (err) => {
+      console.log(err.error);       
     });
-
-    // this.http.get<any[]>('https://localhost:7177/api/token')
-    // .subscribe((resp: any[]) =>{
-    //   this.test = resp;
-    //   console.log(this.test);
-    // });
+  }
+  
+  Logout(){
+    
   }
 
+  Register(){
+
+  }
+    
+  //#endregion
 
 
 

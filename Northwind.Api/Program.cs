@@ -43,6 +43,7 @@ builder.Services.AddCors(op =>
 {
     op.AddPolicy(name: corsPolicy,
             policy => {
+                policy.WithOrigins("*");
                 policy.AllowAnyHeader();
                 policy.AllowAnyMethod();
                 policy.AllowAnyOrigin();
@@ -83,6 +84,7 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+app.UseCors(corsPolicy);
 app.ConfigureExceptionHandler(); // errorHandler extension 
 app.Run(); 
 #endregion
